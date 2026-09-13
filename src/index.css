@@ -1,0 +1,190 @@
+@import "tailwindcss";
+/* Reset body styles and fix white background */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #030008 !important;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #00f3ff;
+}
+
+.jarvis-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #030008;
+}
+
+/* Canvas background overlay fix */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1;
+}
+
+/* HUD Layer positioning */
+.hud-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.hud-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-left .title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #ffffff;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  background: rgba(0, 243, 255, 0.08);
+  border: 1px solid rgba(0, 243, 255, 0.25);
+  padding: 4px 12px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #00f3ff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00f3ff;
+}
+
+.status-dot.active {
+  background-color: #ff007f;
+  box-shadow: 0 0 10px #ff007f;
+}
+
+.top-right {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  align-items: flex-end;
+}
+
+.time-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hud-center-speech {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 90%;
+  max-width: 600px;
+}
+
+.user-transcript {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+.ai-response {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00f3ff;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 12px rgba(0, 243, 255, 0.6);
+}
+
+.hud-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.mic-control-container {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mic-button {
+  background: rgba(0, 243, 255, 0.1);
+  border: 1px solid rgba(0, 243, 255, 0.4);
+  color: #00f3ff;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
+
+.mic-button:hover {
+  background: rgba(0, 243, 255, 0.25);
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.mic-button.listening {
+  background: rgba(255, 0, 127, 0.2);
+  border-color: #ff007f;
+  color: #ff007f;
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+}
+
+.mic-label {
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hud-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 2px;
+}
+
+.hud-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
