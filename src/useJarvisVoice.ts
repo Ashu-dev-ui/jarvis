@@ -112,10 +112,11 @@ export function useJarvisVoice() {
 
     if (lowerQuery.includes('play') && lowerQuery.includes('youtube')) {
       const queryToPlay = userQuery.replace(/play|on youtube/gi, '').trim();
-      const reply = `Playing ${queryToPlay || 'your request'} on YouTube, Boss.`;
+      const reply = `Initiating playback for ${queryToPlay || 'your request'} on YouTube, Boss.`;
       setAiResponse(reply);
       speak(reply);
-      window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(queryToPlay)}`, '_blank');
+      // Redirects to YouTube search with an autoplay parameter structure
+      window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(queryToPlay)}&autoplay=1`, '_blank');
       return;
     }
 
