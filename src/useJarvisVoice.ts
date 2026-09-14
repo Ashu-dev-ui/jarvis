@@ -87,22 +87,41 @@ export function useJarvisVoice() {
     }
   }, []);
 
-  // Send voice query to Gemini via REST API endpoint using the updated 3.6 Flash model ID
+  // Send voice query to Gemini and parse local action shortcuts
   const askGemini = async (userQuery: string) => {
     if (!userQuery) return;
-    setAiResponse('PROCESSING QUERY VIA GEMINI...');
+    setAiResponse('PROCESSING COMMAND...');
 
     if (!GEMINI_API_KEY) {
       const errText = 'API Key missing. Check configuration.';
-      console.error('GEMINI_API_KEY is empty.');
       setAiResponse(errText);
       speak(errText);
       return;
     }
 
+    const lowerQuery = userQuery.toLowerCase();
+
+    // Browser Actions Integration
+    if (lowerQuery.includes('open mail') || lowerQuery.includes('open gmail')) {
+      const reply = 'Opening your email client, Boss.';
+      setAiResponse(reply);
+      speak(reply);
+      window.open('https://mail.google.com', '_blank');
+      return;
+    }
+
+    if (lowerQuery.includes('play') && lowerQuery.includes('youtube')) {
+      const queryToPlay = userQuery.replace(/play|on youtube/gi, '').trim();
+      const reply = `Playing ${queryToPlay || 'your request'} on YouTube, Boss.`;
+      setAiResponse(reply);
+      speak(reply);
+      window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(queryToPlay)}`, '_blank');
+      return;
+    }
+
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${GEMINI_API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: 'POST',
           headers: {
