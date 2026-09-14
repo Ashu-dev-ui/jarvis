@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 
-// Hardcoded locally to bypass .env lookup issues during development
+// Securely loaded from environment variables (Netlify or local .env)
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
+
 export function useJarvisVoice() {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -86,7 +87,7 @@ export function useJarvisVoice() {
     }
   }, []);
 
-  // Send voice query to Gemini via REST API endpoint using the updated stable model ID
+  // Send voice query to Gemini via REST API endpoint using the updated 3.6 Flash model ID
   const askGemini = async (userQuery: string) => {
     if (!userQuery) return;
     setAiResponse('PROCESSING QUERY VIA GEMINI...');
@@ -101,7 +102,7 @@ export function useJarvisVoice() {
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: 'POST',
           headers: {
